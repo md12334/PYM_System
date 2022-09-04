@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,6 +30,10 @@ AUTH_USER_MODEL = 'admin_app.User'
 
 ALLOWED_HOSTS = []
 
+# after login : todo: need to update for individual section
+LOGIN_REDIRECT_URL = "/admin/"
+LOGOUT_REDIRECT_URL = "/admin/login"
+
 # Application definition
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -37,11 +42,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     # created app
-    "admin_app",
-    "staff_app",
-    "student_app",
+    "admin_app.apps.AdminAppConfig",
+    "staff_app.apps.StaffAppConfig",
+    "student_app.apps.StudentAppConfig",
 ]
 
 MIDDLEWARE = [
@@ -59,7 +63,8 @@ ROOT_URLCONF = "app.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "admin_app/templates", BASE_DIR / "staff_app/templates",
+                 BASE_DIR / "student_app/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -113,8 +118,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-
-STATIC_URL = "static/"
+# Config statics and media files
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
