@@ -1,13 +1,26 @@
-from django.contrib.auth.forms import AuthenticationForm, forms
-from django.core.exceptions import ValidationError
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from .models import User
 
 
-class LoginForm(AuthenticationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={'class:': 'form-control'}))
-    password = forms.PasswordInput()
+class StaffRegForm(UserCreationForm):
+    email = forms.EmailField(required=True)
 
-    def confirm_login_allowed(self, user):
-        if not user.is_active:
-            raise ValidationError("This account is inactive.", code='inactive', )
-        if not user.is_admin:
-            raise ValidationError("Invalid user type", code='inactive', )
+    class Meta:
+        model = User
+        fields = (
+            "first_name",
+            "last_name",
+            "username",
+            "email",
+            "password1",
+            "password2"
+        )
+
+    def save(self, commit=True):
+        user = super(StaffRegForm, self).save(commit=False)
+        user.email = self.cleaned_data['email']
+        user.is_staff = True
+        if commit:
+            user.save()
+        return user

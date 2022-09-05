@@ -36,12 +36,6 @@
                 <img src="{% static 'image/logo.png' %}" alt="..." height="45">
             </a>
 
-            {#            <button class="navbar-toggler" type="button" data-toggle="collapse"#}
-            {#                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"#}
-            {#                    aria-expanded="false" aria-label="Toggle navigation">#}
-            {#                <span class="navbar-toggler-icon"></span>#}
-            {#            </button>#}
-
             <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a class="nav-link" href="{% url 'home' %}"> Dashboard </a></li>
@@ -62,37 +56,42 @@
 
             {#      side nav      #}
             <div class="sidenav">
-                <a href="#">Dashboard</a>
+                <a href="{% url 'home' %}">Dashboard</a>
+
                 {#        staff sub sections        #}
                 <button class="dropdown-btn">Staffs<i class="fa fa-caret-down"></i></button>
                 <div class="dropdown-container">
-                    <a href="#">Add Staff</a>
-                    <a href="#">Update Staff</a>
-                    <a href="#">Delete Staff</a>
+                    <a href="{% url 'add-staff' %}">Add Staff</a>
+                    <a href="{% url 'show-staff' %}">Show Staff</a>
+                    <a href="{% url 'update-staff' %}">Update Staff</a>
+                    <a href="{% url 'delete-staff' %}">Delete Staff</a>
                 </div>
+
                 {#        student sub sections        #}
                 <button class="dropdown-btn">Students<i class="fa fa-caret-down"></i></button>
                 <div class="dropdown-container">
                     <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
                 </div>
                 <div class="dropdown-container"></div>
             </div>
 
             {#    content block    #}
             <div id="card-container">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+
+                {#    content block    #}
                 {% block content %}
                 {% endblock %}
             </div>
-
         </div>
-
     </main>
-
-    <footer>
-        <p>This is footer (c)</p>
-    </footer>
 
 </div>
 

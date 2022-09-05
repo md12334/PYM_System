@@ -1,15 +1,9 @@
 {% extends 'base.html' %}
+{% load crispy_forms_filters %}
 
-{% block title %}Home{% endblock %}
+{% block title %} Admin Dashboard {% endblock %}
 
+{# content section #}
 {% block content %}
-
-{#{% if user.is_authenticated %}#}
-  Hi {{ user.username }}!
-
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
-{#{% else %}#}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">Log In</a>
-{#{% endif %}#}
+ This is home.
 {% endblock %}

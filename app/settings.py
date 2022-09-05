@@ -33,6 +33,8 @@ ALLOWED_HOSTS = []
 # after login : todo: need to update for individual section
 LOGIN_REDIRECT_URL = "/admin/"
 LOGOUT_REDIRECT_URL = "/admin/login"
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     "admin_app.apps.AdminAppConfig",
     "staff_app.apps.StaffAppConfig",
     "student_app.apps.StudentAppConfig",
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -63,8 +66,7 @@ ROOT_URLCONF = "app.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "admin_app/templates", BASE_DIR / "staff_app/templates",
-                 BASE_DIR / "student_app/templates"],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
