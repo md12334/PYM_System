@@ -11,6 +11,9 @@ class StaffRegForm(UserCreationForm):
         fields = (
             "first_name",
             "last_name",
+            "department",
+            "phone_number",
+            "address",
             "username",
             "email",
             "password1",

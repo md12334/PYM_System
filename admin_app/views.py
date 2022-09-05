@@ -15,6 +15,24 @@ def home(request):
     return HttpResponse(template.render())
 
 
+# activate staff
+@admin_required()
+def activate_staff(request):
+    # user = User.objects.get(pk=user_id)
+    # user.is_active = True
+    # user.save()
+    return redirect('show-staff')
+
+
+# deactivate staff
+@admin_required()
+def deactivate_staff(request):
+    # user = User.objects.get(pk=user_id)
+    # user.is_active = False
+    # user.save()
+    return redirect('show-staff')
+
+
 # Add Staff
 @admin_required()
 def add_staff(request):

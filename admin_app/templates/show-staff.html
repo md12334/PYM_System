@@ -7,10 +7,40 @@
 {% block content %}
     <!--Register-->
     <h2>All Staffs</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ register_form|crispy }}
-        <button class="btn btn-primary" type="submit">Register</button>
-    </form>
 
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for user in users %}
+            {% if user.is_staff %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.get_full_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                          activation option
+                        {% if user.is_active %}
+                            <a href="{% url 'deactivate'%}">Deactivate</a>
+                        {% else %}
+                            <a href="{% url 'activate'%}">Activate</a>
+                        {% endif %}
+
+                        <a href="{% url 'update-staff'%}">Update</a>
+                        <a href="{% url 'delete-staff'%}">Delete</a>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+
+        </tbody>
+    </table>
 {% endblock %}
