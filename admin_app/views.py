@@ -8,7 +8,7 @@ from django.contrib import messages
 from .models import User
 
 
-# Admin Home
+# admin home
 @admin_required
 def home(request):
     template = loader.get_template('home.html')
@@ -17,19 +17,19 @@ def home(request):
 
 # activate staff
 @admin_required()
-def activate_staff(request):
-    # user = User.objects.get(pk=user_id)
-    # user.is_active = True
-    # user.save()
+def activate_staff(request, id):
+    user = User.objects.get(pk=id)
+    user.is_active = True
+    user.save()
     return redirect('show-staff')
 
 
 # deactivate staff
 @admin_required()
-def deactivate_staff(request):
-    # user = User.objects.get(pk=user_id)
-    # user.is_active = False
-    # user.save()
+def deactivate_staff(request, id):
+    user = User.objects.get(pk=id)
+    user.is_active = False
+    user.save()
     return redirect('show-staff')
 
 
