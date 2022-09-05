@@ -6,7 +6,7 @@
 {# content section #}
 {% block content %}
     <!--Register-->
-    <h2>Add Staff</h2>
+    <h2>Add Student</h2>
     <form method="POST">
         {% csrf_token %}
         {{ register_form|crispy }}
