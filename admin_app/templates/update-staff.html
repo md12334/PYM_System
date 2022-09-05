@@ -6,6 +6,10 @@
 {# content section #}
 {% block content %}
     <!--Register-->
-    Update Staff
-
+    <h2>Update Staff</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ register_form|crispy }}
+        <button class="btn btn-primary" type="submit">Register</button>
+    </form>
 {% endblock %}

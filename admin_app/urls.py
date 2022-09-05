@@ -9,8 +9,8 @@ urlpatterns = [
     # crud operation
     path('add-staff', views.add_staff, name='add-staff'),
     path('show-staff', views.show_staff, name='show-staff'),
-    path('update-staff', views.update_staff, name='update-staff'),
-    path('delete-staff', views.delete_staff, name='delete-staff'),
+    path('update-staff/<int:id>', views.update_staff, name='update-staff'),
+    path('delete-staff/<int:id>', views.delete_staff, name='delete-staff'),
 
     # function
     path('activate/<int:id>', views.activate_staff, name='activate'),

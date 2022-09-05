@@ -4,6 +4,7 @@ from .models import User
 
 
 class StaffRegForm(UserCreationForm):
+
     email = forms.EmailField(required=True)
 
     class Meta:

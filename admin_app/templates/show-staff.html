@@ -8,7 +8,7 @@
     <!--Register-->
     <h2>All Staffs</h2>
 
-
+    {#  table  #}
     <table class="table">
         <thead>
         <tr>
@@ -20,6 +20,7 @@
         </thead>
         <tbody>
 
+        {#    manage user tables    #}
         {% for user in users %}
             {% if user.is_staff and not user.is_superuser %}
                 <tr>
@@ -27,15 +28,14 @@
                     <td>{{ user.get_full_name }}</td>
                     <td>{{ user.email }}</td>
                     <td>
-
                         {% if user.is_active %}
                             <a href="{% url 'deactivate' user.id %}">Deactivate</a>
                         {% else %}
                             <a href="{% url 'activate' user.id %}">Activate</a>
                         {% endif %}
 
-                        <a href="{% url 'update-staff' %}">Update</a>
-                        <a href="{% url 'delete-staff' %}">Delete</a>
+                        <a href="{% url 'update-staff' user.id %}">Update</a>
+                        <a href="{% url 'delete-staff' user.id %}">Delete</a>
                     </td>
                 </tr>
             {% endif %}

@@ -58,19 +58,21 @@ def show_staff(request):
 
 # Update Staff
 @admin_required()
-def update_staff(request):
-    if request.method == "POST":
-        pass
+def update_staff(request, id):
+    user = User.objects.get(pk=id)
 
-    form = StaffRegForm()
-    return render(request=request, template_name="update-staff.html", context={"register_form": form})
+    if request.method == "POST":
+        form = StaffRegForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+    else:
+        form = StaffRegForm(instance=user)
+        return render(request=request, template_name="update-staff.html", context={"register_form": form})
 
 
 # Delete Staff
 @admin_required()
-def delete_staff(request):
-    if request.method == "POST":
-        pass
-
-    form = StaffRegForm()
-    return render(request=request, template_name="delete-staff.html", context={"register_form": form})
+def delete_staff(request, id):
+    user = User.objects.get(pk=id)
+    user.delete()
+    return redirect('show-staff')
