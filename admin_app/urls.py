@@ -19,8 +19,8 @@ urlpatterns = [
     path('delete-student/<int:id>', views.delete_student, name='delete-student'),
 
     # function
-    path('activate/<int:id>', views.activate_staff, name='activate'),
-    path('deactivate/<int:id>', views.deactivate_staff, name='deactivate'),
+    path('activate/<int:id>', views.activate_user, name='activate'),
+    path('deactivate/<int:id>', views.deactivate_user, name='deactivate'),
 
     # auth
     path('', include("django.contrib.auth.urls")),

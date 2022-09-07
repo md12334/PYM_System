@@ -17,20 +17,26 @@ def home(request):
 
 # activate staff
 @admin_required()
-def activate_staff(request, id):
+def activate_user(request, id):
     user = User.objects.get(pk=id)
     user.is_active = True
     user.save()
-    return redirect('show-staff')
+    if user.is_staff:
+        return redirect('show-staff')
+    else:
+        return redirect('show-student')
 
 
 # deactivate staff
 @admin_required()
-def deactivate_staff(request, id):
+def deactivate_user(request, id):
     user = User.objects.get(pk=id)
     user.is_active = False
     user.save()
-    return redirect('show-staff')
+    if user.is_staff:
+        return redirect('show-staff')
+    else:
+        return redirect('show-student')
 
 
 # Add Staff
@@ -65,6 +71,7 @@ def update_staff(request, id):
         form = StaffRegForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
+            return redirect('show-staff')
     else:
         form = StaffRegForm(instance=user)
         return render(request=request, template_name="update-staff.html", context={"register_form": form})
@@ -107,9 +114,11 @@ def update_student(request, id):
     user = User.objects.get(pk=id)
 
     if request.method == "POST":
-        form = StaffRegForm(request.POST, instance=user)
+        form = StudentRegForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
+        return redirect('show-student')
+
     else:
         form = StaffRegForm(instance=user)
         return render(request=request, template_name="update-student.html", context={"register_form": form})
