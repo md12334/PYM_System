@@ -46,7 +46,11 @@ def add_staff(request):
         form = StaffRegForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            user.is_student = False
+            user.staff = True
+            user.admin = False
+            user.save()
+
             messages.success(request, "Registration successful.")
             return redirect("add-staff")
         messages.error(request, "Unsuccessful registration. Invalid information.")
@@ -92,7 +96,10 @@ def add_student(request):
         form = StudentRegForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            user.is_student = True
+            user.staff = False
+            user.admin = False
+            user.save()
             messages.success(request, "Registration successful.")
             return redirect("add-student")
         messages.error(request, "Unsuccessful registration. Invalid information.")
