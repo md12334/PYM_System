@@ -3,9 +3,11 @@ from django.template import loader
 from .decorators import *
 from django.shortcuts import render, redirect
 from .forms import StaffRegForm, StudentRegForm
-from django.contrib.auth import login
 from django.contrib import messages
 from .models import User
+
+
+# # ############################################ # # General Section
 
 
 # admin home
@@ -37,6 +39,9 @@ def deactivate_user(request, id):
         return redirect('show-staff')
     else:
         return redirect('show-student')
+
+
+# # ############################################ # # Staff Section
 
 
 # Add Staff
@@ -89,6 +94,9 @@ def delete_staff(request, id):
     return redirect('show-staff')
 
 
+# # ############################################ # # Student Section
+
+
 # Add student
 @admin_required()
 def add_student(request):
@@ -127,7 +135,7 @@ def update_student(request, id):
         return redirect('show-student')
 
     else:
-        form = StaffRegForm(instance=user)
+        form = StudentRegForm(instance=user)
         return render(request=request, template_name="update-student.html", context={"register_form": form})
 
 
