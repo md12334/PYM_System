@@ -4,7 +4,7 @@ from .decorators import *
 from django.shortcuts import render, redirect
 from .forms import StaffRegForm, StudentRegForm
 from django.contrib import messages
-from .models import User
+from .models import *
 
 
 # # ############################################ # # General Section
@@ -13,8 +13,19 @@ from .models import User
 # admin home
 @admin_required
 def home(request):
-    template = loader.get_template('home.html')
-    return HttpResponse(template.render())
+    total_staff = User.objects.filter(is_staff=True).count()
+    total_student = User.objects.filter(is_student=True).count()
+    total_course = Course.objects.all().count()
+    total_submission = Submission.objects.all().count()
+    total_notices = Notice.objects.all().count()
+
+    return render(request=request, template_name="home.html", context={
+        "total_staff": total_staff,
+        "total_student": total_student,
+        "total_course": total_course,
+        "total_submission": total_submission,
+        "total_notices": total_notices,
+    })
 
 
 # activate staff

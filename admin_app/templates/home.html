@@ -5,5 +5,62 @@
 
 {# content section #}
 {% block content %}
-    <h1>Admin's Home Page</h1>
+
+    <h1>Admin Dashboard</h1>
+
+    <div class="row">
+        {#  staff  #}
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Total Staffs</h5>
+                    <p class="number">{{ total_staff }}</p>
+                </div>
+            </div>
+        </div>
+
+        {#  students  #}
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Total Students</h5>
+                    <p class="number">{{ total_student }}</p>
+                </div>
+            </div>
+        </div>
+
+        {#    courses    #}
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Total Course</h5>
+                    <p class="number">{{ total_course }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+
+        {#  notices  #}
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Total Notices</h5>
+                    <p class="number">{{ total_notices }}</p>
+                </div>
+            </div>
+        </div>
+
+        {#  submissions  #}
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Total Submissions</h5>
+                    <p class="number">{{ total_submission }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

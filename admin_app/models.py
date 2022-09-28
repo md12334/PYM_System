@@ -47,6 +47,8 @@ class Submission(models.Model):
     submission_date = models.DateTimeField(auto_now_add=True)
     submission_file = models.FileField(upload_to="submission_files/", null=False)
     submission_description = models.TextField(null=True)
+    is_accepted = models.BooleanField(default=False)
+    marks = models.IntegerField(null=True)
 
     student = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=False)
@@ -82,7 +84,7 @@ class Message(models.Model):
     message_description = models.TextField(null=False)
 
     sender = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name="sender")
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name="receiver")
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name="receiver" )
 
     # return message description
     def __str__(self):
