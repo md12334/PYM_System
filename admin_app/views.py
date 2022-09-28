@@ -127,6 +127,14 @@ def add_student(request):
     return render(request=request, template_name="add-student.html", context={"register_form": form})
 
 
+# Add student bulk
+@admin_required()
+def add_student_bulk(request):
+    # get file from request and process the csv file to create users
+    # todo
+    return render(request=request, template_name="add-student-bulk.html")
+
+
 # Show student
 @admin_required()
 def show_student(request):
@@ -156,3 +164,37 @@ def delete_student(request, id):
     user = User.objects.get(pk=id)
     user.delete()
     return redirect('show-student')
+
+
+# # ############################################ # # Notice  and message Section
+
+
+# show notice
+@admin_required()
+def show_notice(request):
+    notices = Notice.objects.all()
+    return render(request=request, template_name="show-notice.html", context={"notices": notices})
+
+
+# show message
+@admin_required()
+def show_message(request):
+    messages = Message.objects.all()
+    return render(request=request, template_name="show-message.html", context={"messages": messages})
+
+
+# # ############################################ # # Submission sections
+
+
+@admin_required()
+def show_submission(request):
+    submissions = Submission.objects.all()
+    return render(request=request, template_name="show-submission.html", context={"submissions": submissions})
+
+
+@admin_required()
+def update_submission(request, id):
+    # submission = Submission.objects.get(pk=id)
+    # submission.status = True
+    # submission.save()
+    return redirect('show-submission')

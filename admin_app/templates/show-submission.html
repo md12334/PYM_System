@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %} Admin Dashboard {% endblock %}
+
+{# content section #}
+{% block content %}
+    <!--Register-->
+    <h2>All Submission</h2>
+
+    {#  table  #}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {#    manage user tables    #}
+        {% for user in users %}
+            {% if user.is_staff and not user.is_superuser %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.get_full_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        {% if user.is_active %}
+                            <a href="{% url 'deactivate' user.id %}">Deactivate</a>
+                        {% else %}
+                            <a href="{% url 'activate' user.id %}">Activate</a>
+                        {% endif %}
+
+                        <a href="{% url 'update-staff' user.id %}">Update</a>
+                        <a href="{% url 'delete-staff' user.id %}">Delete</a>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}

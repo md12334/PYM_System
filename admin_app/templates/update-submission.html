@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %} Update Staff {% endblock %}
+
+{# content section #}
+{% block content %}
+    <!--Register-->
+    <h2>Update Submission</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ register_form|crispy }}
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+{% endblock %}
