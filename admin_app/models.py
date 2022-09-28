@@ -30,8 +30,8 @@ class Course(models.Model):
     course_description = models.TextField(null=True)
     course_credit = models.IntegerField(null=False)
 
-    teacher = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
-    students = models.ManyToManyField(User, related_name="students")
+    staff = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    students = models.ManyToManyField(User, related_name="students", blank=True)
 
     # return course name
     def __str__(self):

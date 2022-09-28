@@ -180,7 +180,7 @@ def show_notice(request):
 @admin_required()
 def show_message(request):
     messages = Message.objects.all()
-    return render(request=request, template_name="show-message.html", context={"messages": messages})
+    return render(request=request, template_name="show-message.html", context={"messages_list": messages})
 
 
 # # ############################################ # # Submission sections
@@ -194,7 +194,5 @@ def show_submission(request):
 
 @admin_required()
 def update_submission(request, id):
-    # submission = Submission.objects.get(pk=id)
-    # submission.status = True
-    # submission.save()
+    # todo
     return redirect('show-submission')

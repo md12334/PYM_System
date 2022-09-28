@@ -7,5 +7,31 @@
 {% block content %}
     <!--Register-->
     <h2>Show messages</h2>
+    {#  table  #}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Message</th>
+            <th scope="col">Receiver</th>
+            <th scope="col">Sender</th>
+            <th scope="col">Date</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {#    manage user tables    #}
+        {% for message in messages_list %}
+            <tr>
+                <td>{{ message.id }}</td>
+                <td>{{ message.message_description }}</td>
+                <td>{{ message.receiver }}</td>
+                <td>{{ message.sender }}</td>
+                <td>{{ message.message_date }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
 
 {% endblock %}

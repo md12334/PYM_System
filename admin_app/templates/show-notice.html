@@ -8,4 +8,29 @@
     <!--Register-->
     <h2>Show Notices</h2>
 
+        {#  table  #}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date</th>
+            <th scope="col">Course COde</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {#    manage user tables    #}
+        {% for notice in notices %}
+            <tr>
+                <td>{{ notice.id }}</td>
+                <td>{{ notice.notice_description }}</td>
+                <td>{{ notice.notice_date }}</td>
+                <td>{{ notice.course.course_code }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
 {% endblock %}
