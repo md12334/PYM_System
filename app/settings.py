@@ -31,8 +31,10 @@ AUTH_USER_MODEL = 'admin_app.User'
 ALLOWED_HOSTS = []
 
 # after login : todo: need to update for individual section
-LOGIN_REDIRECT_URL = "/admin/"
-LOGOUT_REDIRECT_URL = "/admin/login"
+# LOGIN_REDIRECT_URL = "/admin/"
+LOGIN_REDIRECT_URL = "/"
+# LOGOUT_REDIRECT_URL = "/admin/login"
+LOGOUT_REDIRECT_URL = "/login"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 

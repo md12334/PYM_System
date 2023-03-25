@@ -14,9 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 from django.urls import path, include
 
+from admin_app.views import custom_login
+
+# git@github.com-md12334:md12334/PYM_System.git
+
 urlpatterns = [
+    path('login/', custom_login, name='custom_login'),  # custom login
     path("suadmin/", admin.site.urls),
     path('admin/', include('admin_app.urls')),  # include admin app path
     path('staff/', include('staff_app.urls')),  # include admin app path

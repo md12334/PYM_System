@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
 
     # home
-    path('', views.home, name='home'),
+    path('', views.index, name='home'),
 
     # crud operation staff
     path('add-staff', views.add_staff, name='add-staff'),

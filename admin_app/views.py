@@ -1,25 +1,64 @@
+from django.contrib.auth import authenticate
 from django.http import HttpResponse
 from django.template import loader
 from .decorators import *
-from django.shortcuts import render, redirect
 from .forms import StaffRegForm, StudentRegForm
 from django.contrib import messages
 from .models import *
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+import logging
+
+# init
+logger = logging.getLogger(__name__)
+
+
+# ################################################ Custom Login functionality
+
+def custom_login(request):
+    """ custom login function that inherits django different auth functionality"""
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+
+        logger.error("in custom login")
+
+        if user is not None:
+            login(request, user)
+            if user.is_admin:
+                logger.error("In custom logging")
+                return redirect('/admin')
+            elif user.is_staff:
+                return redirect('/staff')
+            elif user.is_student:
+                return redirect('/student')
+        else:
+            messages.error(request, 'Invalid username or password. Please try again.')
+
+    # show message if trying to access a page that not permitted
+    if 'next' in request.GET:
+        logger.error("in next method")
+        messages.error(request, 'Please login to access the page')
+
+    return render(request, 'registration/login.html')
 
 
 # # ############################################ # # General Section
 
+# ROOT URL ""
+
 
 # admin home
 @admin_required
-def home(request):
+def index(request):
     total_staff = User.objects.filter(is_staff=True).count()
     total_student = User.objects.filter(is_student=True).count()
     total_course = Course.objects.all().count()
     total_submission = Submission.objects.all().count()
     total_notices = Notice.objects.all().count()
-
-    return render(request=request, template_name="home.html", context={
+    logger.error("in admin home/index")
+    return render(request=request, template_name="admin-home.html", context={
         "total_staff": total_staff,
         "total_student": total_student,
         "total_course": total_course,
@@ -75,13 +114,6 @@ def add_staff(request):
     return render(request=request, template_name="add-staff.html", context={"register_form": form})
 
 
-# Show Staff
-@admin_required()
-def show_staff(request):
-    users = User.objects.all()
-    return render(request=request, template_name="show-staff.html", context={"users": users})
-
-
 # Update Staff
 @admin_required()
 def update_staff(request, id):
@@ -95,6 +127,12 @@ def update_staff(request, id):
     else:
         form = StaffRegForm(instance=user)
         return render(request=request, template_name="update-staff.html", context={"register_form": form})
+
+# Show Staff
+@admin_required()
+def show_staff(request):
+    users = User.objects.all()
+    return render(request=request, template_name="show-staff.html", context={"users": users})
 
 
 # Delete Staff
