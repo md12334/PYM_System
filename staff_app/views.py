@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 # Staff Home
 @staff_required
 def index(request):
-    courses = Course.objects.all()
+    courses = Course.objects.filter(staff=request.user)
     logger.error("in admin home/index")
     return render(request=request, template_name="staff-home.html", context={
         "courses": courses
@@ -84,3 +84,10 @@ def update_course(request, id):
     else:
         form = CourseForm(instance=course)
         return render(request=request, template_name="update-course.html", context={"course_form": form})
+
+
+@staff_required()
+def delete_course(request, id):
+    course = Course.objects.get(id=id)
+    course.delete()
+    return redirect("staff-home")
