@@ -26,7 +26,7 @@ class Course(models.Model):
 
     # columns
     course_name = models.CharField(max_length=100, null=False)
-    course_code = models.CharField(max_length=100, null=False)
+    course_code = models.CharField(max_length=100, null=False, unique=True)
     course_description = models.TextField(null=True)
     course_credit = models.IntegerField(null=False)
 
@@ -84,7 +84,7 @@ class Message(models.Model):
     message_description = models.TextField(null=False)
 
     sender = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name="sender")
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name="receiver" )
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name="receiver")
 
     # return message description
     def __str__(self):

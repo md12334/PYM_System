@@ -5,12 +5,20 @@
 
 {# content section #}
 {% block content %}
-    <!--Register-->
+<!--Register-->
+<div class="d-flex justify-content-between align-items-center">
     <h2>Update your profile</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ register_form|crispy }}
-        <button class="btn btn-primary" type="submit">Submit</button>
+    <form method="GET">
+        <input type="hidden" name="reset" value="true">
+        <button class="btn btn-primary" type="submit">Reset Password</button>
     </form>
+</div>
+
+
+<form method="POST">
+    {% csrf_token %}
+    {{ register_form|crispy }}
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
 
 {% endblock %}
