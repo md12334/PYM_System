@@ -61,3 +61,26 @@ def create_course(request):
     else:
         form = CourseForm()
         return render(request=request, template_name="staff-create-course.html", context={"course_form": form})
+
+
+@staff_required()
+def update_course(request, id):
+    course = Course.objects.get(pk=id)
+
+    if request.user != course.staff:
+        return render(request=request, template_name="update-course.html", context={
+            "messages": ["Sorry you can't access other staff's course"]
+        })
+
+    elif request.method == "POST":
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save(authenticated_user=request.user)
+        return render(request=request, template_name="update-course.html", context={
+            "course_form": form,
+            "messages": ["Course Updated Successfully"]
+        })
+
+    else:
+        form = CourseForm(instance=course)
+        return render(request=request, template_name="update-course.html", context={"course_form": form})
