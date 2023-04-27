@@ -6,11 +6,35 @@
 {# ----- content section ----- #}
 {% block content %}
 
+<!-- title and create button -->
+<div class="d-flex justify-content-between align-items-center">
+    <h1>Staff Dashboard</h1>
+    <a href="{% url 'create-course' %}" class="btn btn-primary">Create New Course</a>
+</div>
 
-<h1>Staff Dashboard</h1>
+<hr>
 
-<form method="GET" action="{% url 'create-course' %}">
-    <button class="btn btn-primary" type="submit">Create New Course</button>
-</form>
+<!-- all courses -->
+<div class="row">
+    {# all courses #}
+    {% for course in courses %}
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{course.course_name}}</h4>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="card-title">Course Code: {{course.course_code}}</p>
+                    <p class="card-title">Credit: {{course.course_credit}}</p>
+                </div>
+
+<!--                <p class="card-text">{{course.course_description}}</p>-->
+                <a href="#" class="btn btn-primary">Open</a>
+                <a href="#" class="btn btn-secondary">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock %}

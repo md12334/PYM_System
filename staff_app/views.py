@@ -14,18 +14,10 @@ logger = logging.getLogger(__name__)
 # Staff Home
 @staff_required
 def index(request):
-    total_staff = 0
-    total_student = 0
-    total_course = 0
-    total_submission = 0
-    total_notices = 0
+    courses = Course.objects.all()
     logger.error("in admin home/index")
     return render(request=request, template_name="staff-home.html", context={
-        "total_staff": total_staff,
-        "total_student": total_student,
-        "total_course": total_course,
-        "total_submission": total_submission,
-        "total_notices": total_notices,
+        "courses": courses
     })
 
 
