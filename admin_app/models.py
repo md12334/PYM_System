@@ -18,6 +18,12 @@ class User(AbstractUser):
     phone_number = models.CharField(max_length=255, unique=True, null=True)
     address = models.TextField(null=True)
 
+    def get_full_name(self):
+        return self.first_name + " " + self.last_name
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name
+
 
 # Course model with teacher_id, students, course_name, course_code, course_description, course_credit
 class Course(models.Model):

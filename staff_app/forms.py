@@ -43,14 +43,9 @@ class CourseForm(forms.ModelForm):
         return course
 
 
-class EnrollForm(forms.ModelForm):
-    class Meta:
-        model = Course
-        fields = []
-
+class EnrollForm(forms.Form):
     students = forms.ModelMultipleChoiceField(
-        queryset=User.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=False,
-        label='Select Students'
+        queryset=User.objects.filter(is_student=True),
+        widget=forms.SelectMultiple(attrs={'class': 'form-control'}),
+        label='Students'
     )

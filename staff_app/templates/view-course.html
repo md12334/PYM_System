@@ -8,8 +8,7 @@
 <!--Register-->
 <div class="d-flex justify-content-between align-items-center">
     <h2>{{course.course_name}}</h2>
-    <form method="GET" action="">
-        <input type="hidden" name="reset" value="true">
+    <form method="GET" action="{% url 'add-students' course.id %}">
         <button class="btn btn-primary" type="submit">Add Students</button>
     </form>
 </div>
@@ -19,9 +18,11 @@
 <div class="card">
     <div class="card-body">
         <div class="d-flex justify-content-between align-items-center">
-            <div class="card-title">Course Code: {{course.course_code}}</div>
-            <div class="card-title">Credit: {{course.course_credit}}</div>
+            <div class="card-title"><b>Course Code: {{course.course_code}}</b></div>
+            <div class="card-title"><b>Credit: {{course.course_credit}}</b></div>
         </div>
+        <p class="card-title">{{course.course_description}}</p>
+
     </div>
 </div>
 
@@ -43,11 +44,13 @@
     <tbody>
 
     {# manage students in course #}
-    {% for student in students %}
+    {% for student in course.students.all %}
     <tr>
         <td>{{ student.get_full_name }}</td>
+        <td>{{ student.department }}</td>
         <td>{{ student.email }}</td>
-        <td><a href="{% url 'delete-staff' user.id %}">Remove Student</a></td>
+        <td>{{ student.phone_number }}</td>
+        <td><a href="">Remove Student</a></td>
     </tr>
     {% endfor %}
 

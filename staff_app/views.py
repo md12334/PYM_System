@@ -98,3 +98,21 @@ def view_course(request, id):
     course = Course.objects.get(id=id)
     return render(request=request, template_name="view-course.html", context={"course": course})
 
+
+@staff_required()
+def add_students(request, id):
+    if request.method == 'POST':
+        form = EnrollForm(request.POST)
+        if form.is_valid():
+            students = list(form.cleaned_data['students'])
+            students_id = [student.id for student in students]
+
+            course = Course.objects.get(id=id)
+            for student_id in students_id:
+                course.students.add(User.objects.get(id=student_id))
+
+            # Do something with the selected students
+            return redirect('view-course',id)
+    else:
+        form = EnrollForm()
+    return render(request, 'add-students.html', {'form': form, "course_id": id})
