@@ -102,6 +102,7 @@ def view_course(request, id):
 @staff_required()
 def add_students(request, id):
     if request.method == 'POST':
+
         form = EnrollForm(request.POST)
         if form.is_valid():
             students = list(form.cleaned_data['students'])
@@ -116,3 +117,19 @@ def add_students(request, id):
     else:
         form = EnrollForm()
     return render(request, 'add-students.html', {'form': form, "course_id": id})
+
+
+@staff_required()
+def remove_student(request):
+    logger.error("In Remove Student")
+    if request.method == 'POST':
+        course_id = request.POST['course_id']
+        student_id = request.POST['student_id']
+
+        course = Course.objects.get(id=course_id)
+        student = User.objects.get(id=student_id)
+        course.students.remove(student)
+
+        logger.error(course)
+        logger.error(student)
+        return redirect('view-course', course_id)

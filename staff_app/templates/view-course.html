@@ -50,7 +50,15 @@
         <td>{{ student.department }}</td>
         <td>{{ student.email }}</td>
         <td>{{ student.phone_number }}</td>
-        <td><a href="">Remove Student</a></td>
+        <td>
+            <!--            -->
+            <form method="POST" action="{% url 'remove-students' %}">
+                {% csrf_token %}
+                <input type="hidden" value="{{ course.id }}" id="course_id" name="course_id">
+                <input type="hidden" value="{{ student.id }}" id="student_id" name="student_id">
+                <button class="btn btn-primary" type="submit">Remove Student</button>
+            </form>
+        </td>
     </tr>
     {% endfor %}
 
