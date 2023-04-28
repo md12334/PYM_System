@@ -91,3 +91,10 @@ def delete_course(request, id):
     course = Course.objects.get(id=id)
     course.delete()
     return redirect("staff-home")
+
+
+@staff_required()
+def view_course(request, id):
+    course = Course.objects.get(id=id)
+    return render(request=request, template_name="view-course.html", context={"course": course})
+

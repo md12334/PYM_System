@@ -27,7 +27,7 @@
                     <p class="card-title">Credit: {{course.course_credit}}</p>
                 </div>
 
-                <a href="#" class="btn btn-primary">Open</a>
+                <a href="{% url 'view-course' course.id %}" class="btn btn-primary">Open</a>
                 <a href="{% url 'update-course' course.id %}" class="btn btn-secondary">Update</a>
                 <a href="{% url 'delete-course' course.id %}" class="btn btn-danger" id="delete-course-{{ course.id }}">Delete</a>
             </div>
