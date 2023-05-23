@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+
+    <!-- font awesome for icon-->
+    <script src="https://kit.fontawesome.com/383e67cde2.js" crossorigin="anonymous"></script>
+
+    <!-- roboto font bold 400-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- link of bootstrap css-->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <!-- link of external  css-->
+    <link rel="stylesheet" href="{% static 'css/style-staff.css' %}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- this is header section for top navigation bar-->
+    <header class="text-white">
+        <div class="navbar navbar-expand-lg navbar-light">
+
+            <a class="navbar-brand" href="{% url 'staff-home' %}">
+                <img src="{% static 'image/logo.png' %}" alt="..." height="45">
+            </a>
+
+            <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a class="nav-link" href="{% url 'staff-home' %}"> Dashboard </a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'staff-profile' %}"> Profile </a></li>
+                    <li class="nav-item mr-lg-5"><a class="nav-link" href="{% url 'logout' %}">Sign-out</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- this is main body-->
+    <main>
+{#        <div class="row">#}
+
+{% comment %}            {#      side nav      #}
+            <div class="sidenav">
+                <a href="{% url 'staff-home' %}">Dashboard</a>
+                <a href="{% url 'staff-profile' %}">Update Profile</a>
+
+                {#        staff sub sections        #}
+                <button class="dropdown-btn">Staffs<i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-container">
+                    <a href="{% url 'add-staff' %}">Add Staff</a>
+                    <a href="{% url 'show-staff' %}">Show Staff</a>
+                </div>
+
+                {#        student sub sections        #}
+                <button class="dropdown-btn">Students<i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-container">
+                    <a href="{% url 'add-student' %}">Add Student</a>
+                    <a href="{% url 'add-student-bulk' %}">Add Bulk</a>
+                    <a href="{% url 'show-student' %}">Show Student</a>
+                </div>
+
+                <div class="dropdown-container"></div>
+            </div>{% endcomment %}
+
+            {#    content block    #}
+            <div id="card-container">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+
+                {#    content block    #}
+                {% block content %}
+                {% endblock %}
+            </div>
+{#        </div>#}
+    </main>
+
+</div>
+
+{# linked base js file: dropdown menu #}
+<script src="{% static 'js/base.js' %}"></script>
+
+{#  jquery  #}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

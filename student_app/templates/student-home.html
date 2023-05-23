@@ -1,0 +1,40 @@
+{% extends 'base-student.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %} Student Home {% endblock %}
+
+{# ----- content section ----- #}
+{% block content %}
+
+<!-- title and create button -->
+<div class="d-flex justify-content-between align-items-center">
+    <h1>Student Dashboard</h1>
+</div>
+
+<hr>
+
+<!-- all courses -->
+<div class="row">
+    {# all courses #}
+    {% for course in courses %}
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{course.course_name}}</h4>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="card-title">Course Code: {{course.course_code}}</p>
+                    <p class="card-title">Credit: {{course.course_credit}}</p>
+                </div>
+
+                <a href="{% url 'view-course' course.id %}" class="btn btn-primary">Open</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+</script>
+
+
+{% endblock %}
