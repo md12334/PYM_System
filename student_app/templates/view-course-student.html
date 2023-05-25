@@ -1,0 +1,55 @@
+{% extends 'base-student.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %} Staff Profile {% endblock %}
+
+{# content section #}
+{% block content %}
+<!--Register-->
+<div class="d-flex justify-content-between align-items-center">
+    <h2>{{course.course_name}}</h2>
+</div>
+
+<hr>
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="card-title"><b>Course Code: {{course.course_code}}</b></div>
+            <div class="card-title"><b>Credit: {{course.course_credit}}</b></div>
+        </div>
+        <p class="card-title">{{course.course_description}}</p>
+
+    </div>
+</div>
+
+<hr>
+
+<h3>Students</h3>
+
+{#  students table  #}
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Department</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {# manage students in course #}
+    {% for student in course.students.all %}
+    <tr>
+        <td>{{ student.get_full_name }}</td>
+        <td>{{ student.department }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.phone_number }}</td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock %}

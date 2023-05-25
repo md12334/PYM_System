@@ -19,9 +19,8 @@ def index(request):
     })
 
 
-
 # Student Profile
-@student_required
+@student_required()
 def student_profile(request):
     logger.error("in staff profile method")
 
@@ -38,3 +37,9 @@ def student_profile(request):
         else:
             form = StudentUpdateForm(instance=request.user)
         return render(request=request, template_name="student-profile.html", context={"register_form": form})
+
+
+@student_required()
+def view_course_student(request, id):
+    course = Course.objects.get(id=id)
+    return render(request=request, template_name="view-course-student.html", context={"course": course})
